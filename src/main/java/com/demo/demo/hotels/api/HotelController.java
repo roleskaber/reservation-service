@@ -2,6 +2,7 @@ package com.demo.demo.hotels.api;
 
 import com.demo.demo.hotels.db.HotelEntity;
 import com.demo.demo.hotels.dto.HotelDto;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class HotelController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(hotelService.addHotel(hotelDto));
+
     }
 
     @GetMapping("/all")

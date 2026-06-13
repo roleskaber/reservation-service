@@ -5,6 +5,7 @@ import com.demo.demo.hotels.db.HotelRepository;
 import com.demo.demo.hotels.db.HotelRoomEntity;
 import com.demo.demo.hotels.dto.HotelDto;
 import com.demo.demo.hotels.elastic.ElasticSearchService;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class HotelService implements IHotelService {
@@ -28,7 +30,13 @@ public class HotelService implements IHotelService {
     @Override
     @Transactional
     public HotelEntity addHotel(HotelDto hotelDto) {
+        try {
+            elasticSearchService.addEntity(hotelDto.toEntity());
+        } catch (Exception e) {
+            logger.error(e.toString());
+        }
         return hotelRepository.save(hotelDto.toEntity());
+
     }
 
     @Override

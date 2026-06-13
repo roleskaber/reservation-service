@@ -18,6 +18,8 @@ public class ReservationEntity {
     private Long userId;
     @Column(name = "room_id", nullable = false)
     private Long roomId;
+    @Column(name = "hotel_id", nullable = false)
+    private Long hotelId;
     @Column(name = "start_date", nullable = false)
     private LocalDate startDate;
     @Column(name = "end_date", nullable = false)
@@ -29,13 +31,26 @@ public class ReservationEntity {
     public ReservationEntity() {
     }
 
-    public ReservationEntity(Long id, Long userId, Long roomId, LocalDate startDate, LocalDate endDate, ReservationStatus status) {
+    public ReservationEntity(Long id, Long userId, Long roomId, Long hotelId, LocalDate startDate, LocalDate endDate, ReservationStatus status) {
         this.id = id;
         this.userId = userId;
         this.roomId = roomId;
+        this.hotelId = hotelId;
         this.startDate = startDate;
         this.endDate = endDate;
         this.status = status;
+    }
+
+    public Reservation toDomain() {
+        return new Reservation(
+                this.id,
+                this.userId,
+                this.roomId,
+                this.hotelId,
+                this.startDate,
+                this.endDate,
+                this.status
+        );
     }
 
     public Long getId() {
@@ -86,14 +101,11 @@ public class ReservationEntity {
         this.status = status;
     }
 
-    public Reservation toDomain() {
-        return new Reservation(
-                this.id,
-                this.userId,
-                this.roomId,
-                this.startDate,
-                this.endDate,
-                this.status
-        );
+    public Long getHotelId() {
+        return hotelId;
+    }
+
+    public void setHotelId(Long hotelId) {
+        this.hotelId = hotelId;
     }
 }

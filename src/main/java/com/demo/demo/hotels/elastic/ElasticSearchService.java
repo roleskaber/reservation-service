@@ -2,7 +2,6 @@ package com.demo.demo.hotels.elastic;
 
 import com.demo.demo.hotels.db.HotelEntity;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Service;
 
@@ -58,9 +57,7 @@ public class ElasticSearchService {
                 .uri(URI.create(var.get("ELASTIC_URL") + "/hotels/_search"))
                 .header("Content-Type", "application/json")
                 .POST(HttpRequest.BodyPublishers.ofString(
-                        ElasticSearchRequestBody.getQueryObj(hint,
-                                page,
-                                size)
+                        BodyBuilderKt.getQueryObj(hint, page, size)
                 ))
                 .build();
         HttpResponse<String> response = client.send(
@@ -68,5 +65,18 @@ public class ElasticSearchService {
                 HttpResponse.BodyHandlers.ofString()
         );
         return serializeResult(response.body());
+    }
+
+    public void addEntity(HotelEntity hotelEntity) throws IOException, InterruptedException {
+        var entity = new ObjectMapper().writeValueAsString(hotelEntity);
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create((var.get("ELASTIC_URL") + "/hotels/_doc/" + hotelEntity.getId())))
+                .header("Content-Type", "application/json")
+                .POST(HttpRequest.BodyPublishers.ofString(entity))
+                .build();
+        HttpResponse<String> response = client.send(
+                request,
+                HttpResponse.BodyHandlers.ofString()
+        );
     }
 }

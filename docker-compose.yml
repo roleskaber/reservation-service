@@ -30,18 +30,6 @@ services:
       - ./elastic/kibana.yml:/usr/share/kibana/config/kibana.yml
     ports:
       - "5601:5601"
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.8.1
-    ports:
-      - "5044:5044"
-    volumes:
-      - ./elastic/logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ./elastic/postgresql-42.7.9.jar:/usr/share/logstash/postgresql.jar
-    environment:
-      xpack.monitoring.enabled: "false"
-    depends_on:
-      - db
-      - elasticsearch
 
 
 volumes:

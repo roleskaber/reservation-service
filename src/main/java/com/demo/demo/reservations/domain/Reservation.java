@@ -15,6 +15,8 @@ public record Reservation(
         Long userId,
         @NotNull
         Long roomId,
+        @NotNull
+        Long hotelId,
         @FutureOrPresent
         @NotNull
         LocalDate startDate,
@@ -28,6 +30,7 @@ public record Reservation(
                         null,
                         this.userId,
                         this.roomId,
+                        this.hotelId,
                         this.startDate,
                         this.endDate,
                         this.status

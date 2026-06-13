@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableMethodSecurity
 @Profile("!development")
 public class SecurityConfig {
-    private final String SPRING_ENV = System.getenv().get("SPRING_ENV");
     private final JwtFilter jwtFilter;
 
     public SecurityConfig(JwtFilter jwtFilter) {

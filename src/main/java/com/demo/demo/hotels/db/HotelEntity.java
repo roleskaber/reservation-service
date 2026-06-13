@@ -4,6 +4,7 @@ import com.demo.demo.hotels.domain.HotelAmenities;
 import com.demo.demo.hotels.dto.HotelDto;
 import jakarta.persistence.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Table(name="hotels")
@@ -25,6 +26,8 @@ public class HotelEntity {
     List<HotelRoomEntity> hotelRoomEntity;
     @Column(name = "amenities")
     List<HotelAmenities> amenities;
+    @Column(name = "updated_at")
+    Date updated_at;
 
 
     public HotelEntity() {
@@ -44,7 +47,7 @@ public class HotelEntity {
         this.amenities = amenities;
     }
 
-        public HotelDto toDto() {
+    public HotelDto toDto() {
         return new HotelDto(
                 id, name, address, country, hotelRoomEntity, amenities
         );
