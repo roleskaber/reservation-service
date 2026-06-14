@@ -2,12 +2,10 @@ package com.demo.demo.security.jwt;
 
 import com.demo.demo.security.CustomUserDetails;
 import com.demo.demo.security.CustomUserService;
-import com.demo.demo.security.db.UserRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpHeaders;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

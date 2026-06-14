@@ -27,7 +27,6 @@ public class ReservationController {
     public ResponseEntity<Reservation> createReservation(
             @RequestBody @Valid Reservation reservation
     ) {
-        logger.info("Started creating reservation");
         var saved_reservation = reservationService.createReservation(reservation);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(saved_reservation);
@@ -40,11 +39,9 @@ public class ReservationController {
             @RequestParam(required = false) Integer pageSize,
             @RequestParam(required = false) Integer pageNum
     ) {
-
         var filter = new ReservationFilter(
                 roomId, userId, pageSize, pageNum
         );
-        logger.info("GET /reservation/all");
         return ResponseEntity.ok(reservationService.getAllReservations(filter));
     }
 
@@ -53,7 +50,6 @@ public class ReservationController {
             @PathVariable Long id,
             @RequestBody Reservation reservation
     ) {
-        logger.info("Updating reservation #{}", reservation.id());
         return ResponseEntity.ok(reservationService.updateReservation(id, reservation));
     }
 
@@ -78,7 +74,6 @@ public class ReservationController {
     public ResponseEntity<Reservation> approveReservationById(
             @PathVariable Long id
     ) {
-        logger.info("POST /reservation/{}/approve", id);
         return ResponseEntity.ok(reservationService.approveReservationById(id));
     }
 
@@ -86,7 +81,6 @@ public class ReservationController {
     public ResponseEntity<Reservation> cancelReservationById(
             @PathVariable Long id
     ) {
-        logger.info("POST /reservation/{}/cancel", id);
         return ResponseEntity.ok(reservationService.cancelReservationById(id));
     }
 
